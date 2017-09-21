@@ -2,6 +2,9 @@ import Vapor
 
 extension Droplet {
     func setupRoutes() throws {
+
+        // NEXT - see steps in https://www.twilio.com/blog/2016/10/getting-started-with-the-vapor-swift-web-framework.html HELLO VAPOR section
+
         get("hello") { req in
             var json = JSON()
             try json.set("hello", "world")
