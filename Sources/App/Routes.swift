@@ -3,7 +3,6 @@ import Vapor
 extension Droplet {
     func setupRoutes() throws {
 
-        // NEXT - see steps in https://www.twilio.com/blog/2016/10/getting-started-with-the-vapor-swift-web-framework.html HELLO VAPOR section
 
         get("hello") { req in
             var json = JSON()
@@ -22,6 +21,18 @@ extension Droplet {
         }
 
         get("description") { req in return req.description }
+
+        get("person") { request in
+            guard let name = request.data["name"]?.string,
+            let city = request.data["city"]?.string else {
+                throw Abort.badRequest
+            }
+ 
+            return try Response(status: .created, json: JSON(node: [
+                "name": name,
+                "city": city
+            ]))
+        }
         
         try resource("posts", PostController.self)
     }
